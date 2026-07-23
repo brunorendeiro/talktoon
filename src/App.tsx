@@ -2,6 +2,8 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import Face from './Face'
 import { characters } from './data/characters'
 import { detectLocale, kindLabel, locales, ui, voiceLangPrefix, type Locale } from './i18n'
+import { getStoredConsent, loadAnalytics } from './analytics'
+import CookieConsent from './CookieConsent'
 
 const MAX_LENGTH = 240
 
@@ -44,6 +46,10 @@ export default function App() {
     document.documentElement.setAttribute('lang', locale)
     if (isDefaultText) setText(ui[locale].defaultText)
   }, [locale, isDefaultText])
+
+  useEffect(() => {
+    if (getStoredConsent() === 'granted') loadAnalytics()
+  }, [])
 
   useEffect(() => {
     if (!supported) return
@@ -258,6 +264,7 @@ export default function App() {
         <a href="https://vibe-portfolio-one.vercel.app/" target="_blank" rel="noreferrer">Created by Bruno Rendeiro</a>
         <span className="powered-badge">⚡ Powered by AI</span>
       </footer>
+      <CookieConsent locale={locale} />
     </div>
   )
 }

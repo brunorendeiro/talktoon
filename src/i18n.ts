@@ -44,6 +44,9 @@ type UiStrings = {
   stop: string
   speakError: string
   footerTagline: string
+  cookieBody: string
+  cookieAccept: string
+  cookieReject: string
 }
 
 export const ui: Record<Locale, UiStrings> = {
@@ -65,6 +68,9 @@ export const ui: Record<Locale, UiStrings> = {
     stop: '■ Parar',
     speakError: 'Não foi possível falar agora. Tenta novamente.',
     footerTagline: '100% no browser — a tua frase nunca sai do dispositivo.',
+    cookieBody: 'Uso o Google Analytics para perceber quantas pessoas visitam este projeto. Aceitas cookies analíticos?',
+    cookieAccept: 'Aceitar',
+    cookieReject: 'Recusar',
   },
   en: {
     tagline: 'Characters that say what you write',
@@ -84,6 +90,9 @@ export const ui: Record<Locale, UiStrings> = {
     stop: '■ Stop',
     speakError: "Couldn't speak right now. Try again.",
     footerTagline: '100% in the browser — your sentence never leaves the device.',
+    cookieBody: 'I use Google Analytics to understand how many people visit this project. Do you accept analytics cookies?',
+    cookieAccept: 'Accept',
+    cookieReject: 'Reject',
   },
   de: {
     tagline: 'Figuren, die sagen, was du schreibst',
@@ -103,5 +112,8 @@ export const ui: Record<Locale, UiStrings> = {
     stop: '■ Stopp',
     speakError: 'Konnte gerade nicht sprechen. Versuch es erneut.',
     footerTagline: '100% im Browser — dein Satz verlässt nie das Gerät.',
+    cookieBody: 'Ich verwende Google Analytics, um zu verstehen, wie viele Menschen dieses Projekt besuchen. Akzeptierst du Analyse-Cookies?',
+    cookieAccept: 'Akzeptieren',
+    cookieReject: 'Ablehnen',
   },
 }
