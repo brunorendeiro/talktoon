@@ -25,6 +25,7 @@ export default function App() {
   const [characterId, setCharacterId] = useState(characters[0].id)
   const [voices, setVoices] = useState<SpeechSynthesisVoice[]>([])
   const [voiceURI, setVoiceURI] = useState<string | null>(null)
+  const [voiceAutoSelected, setVoiceAutoSelected] = useState(true)
   const [rate, setRate] = useState(1)
   const [pitch, setPitch] = useState(1)
   const [speaking, setSpeaking] = useState(false)
@@ -50,13 +51,18 @@ export default function App() {
       const list = window.speechSynthesis.getVoices()
       if (list.length === 0) return
       setVoices(list)
-      setVoiceURI(prev => prev ?? pickDefaultVoice(list, locale)?.voiceURI ?? null)
     }
     loadVoices()
     window.speechSynthesis.addEventListener('voiceschanged', loadVoices)
     return () => window.speechSynthesis.removeEventListener('voiceschanged', loadVoices)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [supported])
+
+  // Re-pick the best-matching voice whenever the voice list or the UI
+  // language changes, unless the user picked one manually from the dropdown.
+  useEffect(() => {
+    if (!voiceAutoSelected) return
+    setVoiceURI(pickDefaultVoice(voices, locale)?.voiceURI ?? null)
+  }, [voices, locale, voiceAutoSelected])
 
   const stopMouthLoop = useCallback(() => {
     if (mouthTimer.current !== null) {
@@ -218,7 +224,7 @@ export default function App() {
               <div className="control-row">
                 <label className="field small">
                   <span>{t.voiceLabel}</span>
-                  <select value={voiceURI ?? ''} onChange={e => setVoiceURI(e.target.value)}>
+                  <select value={voiceURI ?? ''} onChange={e => { setVoiceURI(e.target.value); setVoiceAutoSelected(false) }}>
                     {voices.map(v => (
                       <option key={v.voiceURI} value={v.voiceURI}>{v.name} ({v.lang})</option>
                     ))}
