@@ -38,3 +38,18 @@ npm run build
 - Gravar/exportar a animação como vídeo ou GIF.
 - Visemas mais realistas (mapear fonemas a formas de boca em vez de um
   loop aleatório).
+
+## Nota técnica — Google Analytics
+
+O Analytics só é carregado depois de o utilizador aceitar os cookies. A função
+`gtag` deve enviar o objeto nativo `arguments` para `dataLayer`:
+
+```js
+function gtag() {
+  dataLayer.push(arguments)
+}
+```
+
+Não substituir por `dataLayer.push(args)` com um rest parameter (`...args`):
+apesar de o script da Google carregar, o comando `config` e o `page_view` podem
+não ser processados.
