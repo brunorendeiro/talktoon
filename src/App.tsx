@@ -2,7 +2,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import Face from './Face'
 import { characters } from './data/characters'
 import { detectLocale, kindLabel, locales, ui, voiceLangPrefix, type Locale } from './i18n'
-import { getStoredConsent, loadAnalytics } from './analytics'
+import { getStoredConsent, loadAnalytics, loadAds } from './analytics'
 import CookieConsent from './CookieConsent'
 
 const MAX_LENGTH = 240
@@ -48,7 +48,10 @@ export default function App() {
   }, [locale, isDefaultText])
 
   useEffect(() => {
-    if (getStoredConsent() === 'granted') loadAnalytics()
+    if (getStoredConsent() === 'granted') {
+      loadAnalytics()
+      loadAds()
+    }
   }, [])
 
   useEffect(() => {
