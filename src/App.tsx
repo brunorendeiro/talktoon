@@ -4,6 +4,7 @@ import { characters } from './data/characters'
 import { detectLocale, kindLabel, locales, ui, voiceLangPrefix, type Locale } from './i18n'
 import { getStoredConsent, loadAnalytics, loadAds } from './analytics'
 import CookieConsent from './CookieConsent'
+import AdSlot from './AdSlot'
 
 const MAX_LENGTH = 240
 
@@ -201,6 +202,8 @@ export default function App() {
                   <p className="bubble-placeholder">{t.bubblePlaceholder}</p>
                 )}
               </div>
+
+              {spokenText && <AdSlot />}
             </section>
 
             <section className="character-picker">

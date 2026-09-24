@@ -40,8 +40,14 @@ export function loadAds() {
   script.src = `https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4561414438757131`
   document.head.appendChild(script)
 
+  // Auto ads (enable_page_level_ads) stay off on purpose: on a single-screen app
+  // like this one, Google's automatic placement ends up dropping ads onto the
+  // bare, mostly-interactive screen (textarea, sliders, buttons) with almost no
+  // publisher text, which is exactly what triggered the AdSense policy flag.
+  // We use a manual ad unit instead (see AdSlot.tsx), placed only where there is
+  // real generated content on screen.
   window.adsbygoogle = window.adsbygoogle || []
-  window.adsbygoogle.push({ google_ad_client: 'ca-pub-4561414438757131', enable_page_level_ads: true })
+  window.adsbygoogle.push({ google_ad_client: 'ca-pub-4561414438757131' })
 }
 
 export function setConsent(value: Consent) {
